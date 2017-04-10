@@ -3,13 +3,16 @@ package dapo_p1;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class main {
 
 	public static double[][] readFile(String file) throws FileNotFoundException {
 		File reader = new File(file);
-		Scanner input = new Scanner(reader);
+		Scanner scanner = new Scanner(reader);
+		Scanner input = scanner.useLocale(Locale.US);
+
 		// skipping the first 3 lines
 		input.nextLine();
 		input.nextLine();
@@ -40,9 +43,8 @@ public class main {
 		// }
 		// System.out.println();
 		// }
-
+		scanner.close();
 		return adjMatrix;
-
 	}
 
 	public static boolean oddSum(double[] MST) {
