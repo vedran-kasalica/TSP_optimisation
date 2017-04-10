@@ -33,41 +33,41 @@ public class main {
 							+ Math.pow(coordinates[i][1] - coordinates[j][1], 2));
 			}
 		}
-//		print matrix
-//		for (int i = 0; i < adjMatrix[0].length; i++) {
-//			for (int j = 0; j < adjMatrix[0].length; j++) {
-//				System.out.printf("%3.1f \t",adjMatrix[i][j]);
-//			}
-//			System.out.println();
-//		}
-		
+		// print matrix
+		// for (int i = 0; i < adjMatrix[0].length; i++) {
+		// for (int j = 0; j < adjMatrix[0].length; j++) {
+		// System.out.printf("%3.1f \t",adjMatrix[i][j]);
+		// }
+		// System.out.println();
+		// }
+
 		return adjMatrix;
 
 	}
 
-	public static void main(String[] args) throws FileNotFoundException {
-
-		double[][] adjMatrix = readFile("./input/1.txt");
-		
-		try {
-			Prim.prim(adjMatrix);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		
-		
-		
-		
+	public static boolean oddSum(double[] MST) {
+		Boolean s = false;
+		for (int i = 0; i < MST.length; i++)
+			if (MST[i] > 0)
+				s = !s;
+		return s;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public static void main(String[] args) throws IOException {
+
+		double[][] adjMatrix = readFile("./input/1.txt");
+
+		double[][] MST = Prim.prim(adjMatrix);
+
+		int size = adjMatrix[0].length;
+
+		int[] odd = new int[size];
+		int curr = 0;
+		for (int i = 0; i < size; i++) {
+			if (oddSum(MST[i]))
+				odd[curr++] = i;
+		}
+
+	}
+
 }
