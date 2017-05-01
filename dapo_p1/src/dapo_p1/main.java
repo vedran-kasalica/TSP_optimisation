@@ -3,10 +3,13 @@ package dapo_p1;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
+
 public class main {
+	
 
 	public static double[][] readFile(String file) throws FileNotFoundException {
 		File reader = new File(file);
@@ -54,8 +57,46 @@ public class main {
 				s = !s;
 		return s;
 	}
+	
+	public static ArrayList<Integer> DFS(double adjMatrix[][])
+	{
+		ArrayList<Integer> traversal = new ArrayList<Integer>();
+		traversal.add(0);
+		boolean[] V=new boolean[adjMatrix[0].length]; // a visited array to mark which vertices have been visited while doing the DFS
+		int numComponents=0; // the number of components in the graph
+		
+		// do the DFS from each node not already visited
+		for (int i=0; i<adjMatrix[0].length; ++i)
+			if (!V[i])
+			{
+				++numComponents;
+//				System.out.printf("Starting a DFS for component %d starting at node %d%n",numComponets,i);
+				DFS(i,V,adjMatrix,traversal);
+			}
+		
+		traversal.add(0);
+		return traversal;
+	}
+	
+	public static void DFS(int at, boolean[] V, double[][] adjMatrix, ArrayList<Integer> traversal)
+	{
+//		System.out.printf("At node %d in the DFS%n",at);
+		// mark that we are visiting this node
+		V[at]=true;
+		
+		// recursively visit every node connected to this that we have not already visited
+		for (int i=0; i<adjMatrix[0].length; ++i)
+			if (adjMatrix[at][i]!=0 && !V[i])
+			{
+//				System.out.printf("Going to node %d...\n",i);
+					traversal.add(i);
+				DFS(i,V,adjMatrix,traversal);
+			}
+		
+//S		System.out.printf("Done processing node %d%n", at);
+	}
 
-	public static void main(String[] args) throws IOException {
+	/*public static void main(String[] args) throws IOException {
 
 		double[][] adjMatrix = readFile("./input/1.txt");
 
@@ -69,6 +110,55 @@ public class main {
 			if (oddSum(MST[i]))
 				odd[curr++] = i;
 		}
+
+	}*/
+	
+	public static void main(String[] args) throws IOException {
+
+//		double[][] adjMatrix = readFile("./input/Argentina.txt");
+//		double[][] adjMatrix = readFile("./input/Greece.txt");
+//		double[][] adjMatrix = readFile("./input/Djibouti.txt");
+//		double[][] adjMatrix = readFile("./input/Kazakhstan.txt");
+		double[][] adjMatrix = readFile("./input/Japan.txt");
+
+		double[][] MST = Prim.prim(adjMatrix);
+
+		int size = adjMatrix[0].length;
+		
+		int number_no_nodes = adjMatrix[0].length;
+		System.out.println("The BFS traversal of the graph is ");
+		ArrayList<Integer> traversal = DFS(MST);
+		for (int i = 0; i < adjMatrix[0].length +1; i++) {
+			System.out.println(traversal.get(i) + "  ");
+		}
+		System.out.println();
+		double sum=0;
+		for (int i = 0,j=1; i < adjMatrix[0].length+1 && j < adjMatrix[0].length+1;) {
+			if (i<j) {
+				sum = sum + adjMatrix[traversal.get(i)][traversal.get(j)];
+//				System.out.println("We added the cost of the edge(" + traversal1.get(i) + " " + traversal1.get(j) + "), that actually cost: "+adjMatrix[traversal1.get(i)][traversal1.get(j)]);
+				i=i+2;
+			}
+			else if (j<i){
+				sum = sum + adjMatrix[traversal.get(j)][traversal.get(i)];
+//				System.out.println("We added the cost of " + traversal1.get(j) + " " + traversal1.get(i) + " that actually cost: "+adjMatrix[traversal1.get(j)][traversal1.get(i)]);
+				j=j+2;
+			}
+			
+//			System.out.println("The sum is: " + sum);
+//			System.out.println("Traversal: "+traversal1.get(i));
+		}
+		
+		System.out.println("The total cost is: " + sum);
+		
+		int[] odd = new int[size];
+		int curr = 0;
+/*		for (int i = 0; i < number_no_nodes; i++) {
+			for (int j=0; j < number_no_nodes; j++){
+				if(MST[i][j]!=0.0)
+				System.out.println("The MST of "+ i + " "+ j+ " is " + MST[i][j]);
+			}
+		}*/
 
 	}
 
