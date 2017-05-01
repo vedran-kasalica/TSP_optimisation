@@ -17,7 +17,7 @@ public class Prim {
 
 		for (int i = 0; i < size; i++) {
 			p[i] = visited[i] = -1;
-			d[i] = 32767;
+			d[i] = Integer.MAX_VALUE;
 		}
 
 		current = 0;
@@ -52,9 +52,9 @@ public class Prim {
 		for (int i = 0; i < size; i++)
 			mincost = mincost + d[i];
 
-		System.out.print("\n Minimum cost = " + mincost);
-		// System.out.print("\n Minimum Spanning tree is ");
-		//
+		System.out.println("Minimum cost = " + mincost);
+//		 System.out.print("\n Minimum Spanning tree is ");
+		
 //		 for (int i = 0; i < size; i++)
 //		 System.out.print("\n vertex " + i + " is connected to " + p[i]);
 //		 System.out.println();
@@ -67,13 +67,13 @@ public class Prim {
 			}
 		}
 
-		// print MST
-		// for (int i = 0; i < MST[0].length; i++) {
-		// for (int j = 0; j < MST[0].length; j++) {
-		// System.out.printf("%3.1f \t", MST[i][j]);
-		// }
-		// System.out.println();
-		// }
+//		 print MST
+//		 for (int i = 0; i < MST[0].length; i++) {
+//		 for (int j = 0; j < MST[0].length; j++) {
+//		 System.out.printf("%3.1f \t", MST[i][j]);
+//		 }
+//		 System.out.println();
+//		 }
 		return MST;
 	}
 }
