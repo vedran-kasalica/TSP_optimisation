@@ -61,12 +61,14 @@ public class main {
 
 		int size = adjMatrix[0].length;
 
-		int[] odd = new int[size];
+//		list that has indexes of odd nodes and after that -1
+		int[] odd = new int[size+1];
 		int curr = 0;
 		for (int i = 0; i < size; i++) {
 			if (oddSum(MST[i]))
 				odd[curr++] = i;
 		}
+		odd[curr]=-1;
 
 	}
 
