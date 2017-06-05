@@ -146,9 +146,9 @@ public class Project1 {
 	public static void main(String[] args) throws IOException {
 
 //		 adjMatrix = readFile("./input/WesternSahara.txt");
-		adjMatrix = readFile("./input/Qatar.txt");
+//		adjMatrix = readFile("./input/Qatar.txt");
 		// adjMatrix = readFile("./input/Argentina.txt");
-		// adjMatrix = readFile("./input/Greece.txt");
+		 adjMatrix = readFile("./input/Greece.txt");
 //		 adjMatrix = readFile("./input/Djibouti.txt");
 		// adjMatrix = readFile("./input/Kazakhstan.txt");
 		// adjMatrix = readFile("./input/Japan.txt");
