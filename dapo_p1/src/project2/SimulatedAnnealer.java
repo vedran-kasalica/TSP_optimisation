@@ -51,27 +51,40 @@ public class SimulatedAnnealer {
 		TSPEnvironment tspEnvironment = new TSPEnvironment();
 
 		try {
-			tspEnvironment.distances = TSPEnvironment.readFile("./input/WesternSahara.txt");
+			tspEnvironment.distances = TSPEnvironment.readFile("./input/Japan.txt");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		int[] currSolution = getRandomArray(tspEnvironment.distances.length);
 		double currCost = tspEnvironment.getObjectiveFunctionValue(currSolution);
+
+		int numberOfIterations = 10000;
+		double temperature = 500000;
 		
-		int numberOfIterations = 100000;
-		double temperature = 1500;
-		for (int i = 0; i < numberOfIterations; i++) {
-			temperature = temperature * 0.95;
-			//double newtemperature = temperature/(i+1);
+		int[] sbest = currSolution;
+		double ebest = currCost;
+		int k=0;
+//		double emax = 10000;
+		while (k<numberOfIterations){
+			double newtemperature = temperature/(k+1);
 			int[] randomNeighbor = randomNeighbor(currSolution);
 			double neighborCost = tspEnvironment.getObjectiveFunctionValue(randomNeighbor);
-			if (acceptProposal(currCost, neighborCost, temperature)) {
-				currSolution = randomNeighbor;
+			if (acceptProposal(currCost, neighborCost, newtemperature)){
+				currSolution =  randomNeighbor;
+				currCost = tspEnvironment.getObjectiveFunctionValue(currSolution);
 			}
-            printSolution(currSolution);
-            System.out.println("The cost is: " + tspEnvironment.getObjectiveFunctionValue(currSolution));
+			if (neighborCost < ebest){
+				sbest = randomNeighbor;
+				ebest = neighborCost;
+			}
+			printSolution(sbest);
+            System.out.println("The cost is: " + tspEnvironment.getObjectiveFunctionValue(sbest));
+			k++;
+			
 		}
+        System.out.println("The cost is: " + tspEnvironment.getObjectiveFunctionValue(sbest));
+		printSolution(sbest);
 
 	}
 	
