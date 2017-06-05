@@ -50,7 +50,12 @@ public class SimulatedAnnealer {
 		TSPEnvironment tspEnvironment = new TSPEnvironment();
 
 		try {
-			tspEnvironment.distances = TSPEnvironment.readFile("./input/WesternSahara.txt");
+//			tspEnvironment.distances = TSPEnvironment.readFile("./input/WesternSahara.txt");
+//			tspEnvironment.distances = TSPEnvironment.readFile("./input/Djibouti.txt");
+//			tspEnvironment.distances = TSPEnvironment.readFile("./input/Qatar.txt");
+//			tspEnvironment.distances = TSPEnvironment.readFile("./input/Argentina.txt");
+			tspEnvironment.distances = TSPEnvironment.readFile("./input/Kazakhstan.txt");
+//			tspEnvironment.distances = TSPEnvironment.readFile("./input/Greece.txt");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -58,14 +63,14 @@ public class SimulatedAnnealer {
 		int[] currSolution = getRandomArray(tspEnvironment.distances.length);
 		double currCost = tspEnvironment.getObjectiveFunctionValue(currSolution);
 
-		int numberOfIterations = 10000;
-		double temperature = 500000;
+		int numberOfIterations = 1000000;
+		double temperature = 6000000;
 		
 		int[] sbest = currSolution;
 		double ebest = currCost;
 		int k=0;
 //		double emax = 10000;
-		while (k<numberOfIterations || temperature<10){
+		while (k<numberOfIterations || temperature<0.1){
 			double newtemperature = temperature/(k+1);
 			int[] randomNeighbor = randomNeighbor(currSolution);
 			double neighborCost = tspEnvironment.getObjectiveFunctionValue(randomNeighbor);

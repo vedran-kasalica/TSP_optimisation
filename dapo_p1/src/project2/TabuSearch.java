@@ -22,8 +22,7 @@ public class TabuSearch {
 
 	public static int getBestNeighbour(TabuList tabuList, TSPEnvironment tspEnviromnet, int[] initSolution) {
 
-		int[] bestSol = new int[initSolution.length]; // this is the best
-														// Solution So Far
+		int[] bestSol = new int[initSolution.length];
 		System.arraycopy(initSolution, 0, bestSol, 0, bestSol.length);
 		int initCost = tspEnviromnet.getObjectiveFunctionValue(initSolution);
 		int bestCost = initCost;
@@ -31,25 +30,18 @@ public class TabuSearch {
 		int city2 = 0;
 		boolean firstNeighbor = true;
 		// =i+Math.max(1,(int)(initSolution.length*(Math.random()*0.1+0.1)))
-		for (int i = 1; i < initSolution.length - 2; i++) {
-			for (int j = i + 1; j < initSolution.length - 1; j++) {
+		for (int i = 1; i < initSolution.length - 2; i+=Math.max(1,(int)(initSolution.length*(Math.random()*0.1+0.1)))) {
+			for (int j = i + 1; j < initSolution.length - 1; j+=Math.max(1,(int)(initSolution.length*(Math.random()*0.1+0.1)))) {
 
 				int[] newBestSol = new int[initSolution.length];
 
 				System.arraycopy(initSolution, 0, newBestSol, 0, newBestSol.length);
 
-				swapOperator(i, j, newBestSol); // Try swapping
-												// cities i and
-												// j
+				swapOperator(i, j, newBestSol);
 				// , maybe we get a bettersolution
 				int newBestCost = tspEnviromnet.getObjectiveFunctionValueForChange(initSolution, i, j, initCost);
 
-				if ((newBestCost < bestCost || firstNeighbor) && tabuList.tabuList[i][j] == 0) { // if
-																									// better
-																									// move
-																									// found,
-																									// store
-																									// it
+				if ((newBestCost < bestCost || firstNeighbor) && tabuList.tabuList[i][j] == 0) {
 					firstNeighbor = false;
 					city1 = i;
 					city2 = j;
@@ -81,7 +73,12 @@ public class TabuSearch {
 		TSPEnvironment tspEnvironment = new TSPEnvironment();
 
 		try {
-			tspEnvironment.distances = TSPEnvironment.readFile("./input/WesternSahara.txt");
+//			tspEnvironment.distances = TSPEnvironment.readFile("./input/WesternSahara.txt");
+//			tspEnvironment.distances = TSPEnvironment.readFile("./input/Djibouti.txt");
+//			tspEnvironment.distances = TSPEnvironment.readFile("./input/Qatar.txt");
+//			tspEnvironment.distances = TSPEnvironment.readFile("./input/Argentina.txt");
+//			tspEnvironment.distances = TSPEnvironment.readFile("./input/Kazakhstan.txt");
+			tspEnvironment.distances = TSPEnvironment.readFile("./input/Greece.txt");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -89,6 +86,7 @@ public class TabuSearch {
 
 		// initial solution
 		int[] currSolution = getRandomArray(tspEnvironment.distances.length);
+//		int[] currSolution = {21,22,28,20,18,14,17,16,27,25,19,24,26,23,15,13,12,11,10,9,7,8,6,2,3,4,0,1,5};
 		int numberOfIterations = 1000;
 		int tabuLength = tspEnvironment.distances.length;
 		TabuList tabuList = new TabuList(tabuLength);
