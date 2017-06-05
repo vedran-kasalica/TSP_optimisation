@@ -9,8 +9,8 @@ public class TabuList {
     }
     
     public void tabuMove(int city1, int city2){ //tabus the swap operation
-        tabuList[city1][city2]+= 40;
-        tabuList[city2][city1]+= 40;
+        tabuList[city1][city2]+= 100;
+        tabuList[city2][city1]+= 100;
         
     }
     

@@ -25,13 +25,22 @@ public class TSPEnvironment { //Tabu Search Environment
     }
     
     public int getObjectiveFunctionValueForChange(int solution[], int a1, int a2, int cost){ //returns the path cost
-        cost -=distances[solution[a1]][solution[a1+1]];
-        cost +=distances[solution[a1]][solution[a1+1]];
+    	if(a1+1==a2){
+    		 cost -=distances[solution[a1]][solution[a1-1]];
+    	     cost +=distances[solution[a2]][solution[a1-1]];
+    	     cost -=distances[solution[a2]][solution[a2+1]];
+    	     cost +=distances[solution[a1]][solution[a2+1]];
+    	}else{
+    	cost -=distances[solution[a1]][solution[a1+1]];
+        cost +=distances[solution[a2]][solution[a1+1]];
+        cost -=distances[solution[a1]][solution[a1-1]];
+        cost +=distances[solution[a2]][solution[a1-1]];
    
-        for(int i = 0 ; i < solution.length-1; i++){
-            cost+= distances[solution[i]][solution[i+1]];
-        }
-   
+        cost -=distances[solution[a2]][solution[a2+1]];
+        cost +=distances[solution[a1]][solution[a2+1]];
+        cost -=distances[solution[a2]][solution[a2-1]];
+        cost +=distances[solution[a1]][solution[a2-1]];
+    	}
         return cost;
         
     }
