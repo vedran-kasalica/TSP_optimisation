@@ -89,7 +89,13 @@ public class TabuSearch {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
+        /*tspEnvironment.distances = //Distance matrix, 5x5, used to represent distances
+                new double[][]{{0, 1, 3, 4, 5},
+                            {1, 0, 1, 4, 8},
+                            {3, 1, 0, 5, 1},
+                            {4, 4, 5, 0, 2},
+                            {5, 8, 1, 2, 0}};*/
         //Between cities. 0,1 represents distance between cities 0 and 1, and so on.
         
         int[] currSolution =getRandomArray(tspEnvironment.distances.length);   //initial solution
@@ -98,7 +104,7 @@ public class TabuSearch {
         // the first and last cities' positions do not change
 
         int numberOfIterations = 100;
-        int tabuLength = 10;
+        int tabuLength = tspEnvironment.distances.length;
         TabuList tabuList = new TabuList(tabuLength);
 
         int[] bestSol = new int[currSolution.length]; //this is the best Solution So Far
@@ -111,7 +117,7 @@ public class TabuSearch {
             printSolution(currSolution);
             int currCost = tspEnvironment.getObjectiveFunctionValue(currSolution);
 
-            System.out.println("Current best cost = " + tspEnvironment.getObjectiveFunctionValue(currSolution));
+            System.out.println("Current best cost = " + currCost);
 
             if (currCost < bestCost) {
                 System.arraycopy(currSolution, 0, bestSol, 0, bestSol.length);
