@@ -88,7 +88,7 @@ public class TabuSearch {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+
 
 //		print(tspEnvironment.distances);
 		// initial solution
@@ -112,6 +112,7 @@ public class TabuSearch {
 					"Current best cost = " + currCost);
 			System.out.println(" Or is it?? cost: " + tspEnvironment.getObjectiveFunctionValue(currSolution));
 
+
 			if (currCost < bestCost) {
 				System.arraycopy(currSolution, 0, bestSol, 0, bestSol.length);
 				bestCost = currCost;
@@ -123,7 +124,7 @@ public class TabuSearch {
 		System.out.println("Search done! \nBest Solution cost found = " + bestCost + "\nBest Solution :");
 
 		printSolution(bestSol);
-
+		}
 	}
 
 	private static void print(int[][] distances) {
