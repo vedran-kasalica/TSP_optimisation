@@ -12,10 +12,9 @@ public class SimulatedAnnealer {
 		double prob;
 		if (proposal < current)
 			return true;
-		if (temperature == 0.0)
+		if (temperature < 0.2)
 			return false;
-		prob = Math.exp(-(proposal - current) / temperature);
-		return Math.random() < prob;
+		return (Math.exp((proposal - current) / temperature) < Math.random());
 	}
 
 	static int[] getRandomArray(int n) {
@@ -33,16 +32,18 @@ public class SimulatedAnnealer {
 	}
 	
 	public static int[] randomNeighbor(int[] solution) {
-		int[] newSolution = new int[solution.length]; // this is the best
-		System.arraycopy(solution, 0, newSolution, 0, newSolution.length);
 		int k = solution.length;
+		int[] newSolution = new int[k];
+		System.arraycopy(solution, 0, newSolution, 0, k);
+		
 		int[] ints = new Random().ints(0, k).distinct().limit(2).toArray();
 		int rnd1 = ints[0];
 		int rnd2 = ints[1];
+		System.out.println(k+", od toga 2: "+rnd1+"___"+rnd2);
 		int temp = newSolution[rnd1];
 		newSolution[rnd1] = newSolution[rnd2];
 		newSolution[rnd2] = temp;
-		return solution;
+		return newSolution;
 	}
 
 	public static void main(String[] args) {
@@ -57,10 +58,11 @@ public class SimulatedAnnealer {
 		}
 		int[] currSolution = getRandomArray(tspEnvironment.distances.length);
 		double currCost = tspEnvironment.getObjectiveFunctionValue(currSolution);
-		int numberOfIterations = 10;
-		double temperature = 500;
+		
+		int numberOfIterations = 100000;
+		double temperature = 1500;
 		for (int i = 0; i < numberOfIterations; i++) {
-			temperature = temperature * Math.pow(0.95,i);
+			temperature = temperature * 0.95;
 			//double newtemperature = temperature/(i+1);
 			int[] randomNeighbor = randomNeighbor(currSolution);
 			double neighborCost = tspEnvironment.getObjectiveFunctionValue(randomNeighbor);

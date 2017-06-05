@@ -1,11 +1,8 @@
 package project2;
 
-import java.awt.print.Printable;
 import java.io.FileNotFoundException;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-
-import dapo_p1.Project1;
 
 public class TabuSearch {
 
@@ -33,20 +30,20 @@ public class TabuSearch {
 		int city1 = 0;
 		int city2 = 0;
 		boolean firstNeighbor = true;
-//		=i+Math.max(1,(int)(initSolution.length*(Math.random()*0.1+0.1)))
+		// =i+Math.max(1,(int)(initSolution.length*(Math.random()*0.1+0.1)))
 		for (int i = 1; i < initSolution.length - 2; i++) {
-			for (int j = i+1; j < initSolution.length - 1; j++) {
+			for (int j = i + 1; j < initSolution.length - 1; j++) {
 
-				int[] newBestSol = new int[initSolution.length]; 
-															
+				int[] newBestSol = new int[initSolution.length];
+
 				System.arraycopy(initSolution, 0, newBestSol, 0, newBestSol.length);
 
 				swapOperator(i, j, newBestSol); // Try swapping
-																// cities i and
-																// j
+												// cities i and
+												// j
 				// , maybe we get a bettersolution
-				int newBestCost = tspEnviromnet.getObjectiveFunctionValueForChange(initSolution,i,j,initCost);
-				
+				int newBestCost = tspEnviromnet.getObjectiveFunctionValueForChange(initSolution, i, j, initCost);
+
 				if ((newBestCost < bestCost || firstNeighbor) && tabuList.tabuList[i][j] == 0) { // if
 																									// better
 																									// move
@@ -89,18 +86,16 @@ public class TabuSearch {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			
-//		print(tspEnvironment.distances);
+
 		// initial solution
 		int[] currSolution = getRandomArray(tspEnvironment.distances.length);
-//		int[] currSolution = {41,40,39,38,26,11,8,4,2,1,0,19,35,15,12,22,24,23,25,32,17,20,16,13,10,7,5,3,6,27,28,21,36,31,29,34,37,33,30,18,14,9 };
 		int numberOfIterations = 1000;
 		int tabuLength = tspEnvironment.distances.length;
 		TabuList tabuList = new TabuList(tabuLength);
 		int[] bestSol = new int[currSolution.length]; // this is the best
 														// Solution So Far
 		System.arraycopy(currSolution, 0, bestSol, 0, bestSol.length);
-		
+
 		System.out.println(" Initial cost: " + tspEnvironment.getObjectiveFunctionValue(currSolution));
 
 		int bestCost = tspEnvironment.getObjectiveFunctionValue(bestSol);
@@ -108,9 +103,7 @@ public class TabuSearch {
 		for (int i = 0; i < numberOfIterations; i++) {
 			int currCost = TabuSearch.getBestNeighbour(tabuList, tspEnvironment, currSolution);
 			// printSolution(currSolution);
-			System.out.println(
-					"Current best cost = " + currCost);
-
+			System.out.println("Current best cost = " + currCost);
 
 			if (currCost < bestCost) {
 				System.arraycopy(currSolution, 0, bestSol, 0, bestSol.length);
@@ -121,16 +114,6 @@ public class TabuSearch {
 		System.out.println("Search done! \nBest Solution cost found = " + bestCost + "\nBest Solution :");
 
 		printSolution(bestSol);
-	}
-
-	private static void print(int[][] distances) {
-		for (int i = 0; i < distances.length; i++) {
-			for (int j = 0; j < distances[0].length; j++) {
-				System.out.printf("%3d \t", distances[i][j]);
-			}
-			System.out.println();
-		}
-
 	}
 
 	public static void printSolution(int[] solution) {
