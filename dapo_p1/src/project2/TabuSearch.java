@@ -84,16 +84,16 @@ public class TabuSearch {
 		TSPEnvironment tspEnvironment = new TSPEnvironment();
 
 		try {
-			tspEnvironment.distances = TSPEnvironment.readFile("./input/Qatar.txt");
+			tspEnvironment.distances = TSPEnvironment.readFile("./input/WesternSahara.txt");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-
-
+		}
+			
 //		print(tspEnvironment.distances);
 		// initial solution
-//		int[] currSolution = getRandomArray(tspEnvironment.distances.length);
-		int[] currSolution = {41,40,39,38,26,11,8,4,2,1,0,19,35,15,12,22,24,23,25,32,17,20,16,13,10,7,5,3,6,27,28,21,36,31,29,34,37,33,30,18,14,9 };
+		int[] currSolution = getRandomArray(tspEnvironment.distances.length);
+//		int[] currSolution = {41,40,39,38,26,11,8,4,2,1,0,19,35,15,12,22,24,23,25,32,17,20,16,13,10,7,5,3,6,27,28,21,36,31,29,34,37,33,30,18,14,9 };
 		int numberOfIterations = 1000;
 		int tabuLength = tspEnvironment.distances.length;
 		TabuList tabuList = new TabuList(tabuLength);
@@ -110,21 +110,17 @@ public class TabuSearch {
 			// printSolution(currSolution);
 			System.out.println(
 					"Current best cost = " + currCost);
-			System.out.println(" Or is it?? cost: " + tspEnvironment.getObjectiveFunctionValue(currSolution));
 
 
 			if (currCost < bestCost) {
 				System.arraycopy(currSolution, 0, bestSol, 0, bestSol.length);
 				bestCost = currCost;
-				System.out.println("$$$$$$$$$$$");
-				printSolution(bestSol);
 			}
 		}
 
 		System.out.println("Search done! \nBest Solution cost found = " + bestCost + "\nBest Solution :");
 
 		printSolution(bestSol);
-		}
 	}
 
 	private static void print(int[][] distances) {
