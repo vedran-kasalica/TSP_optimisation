@@ -4,10 +4,10 @@ import java.util.Random;
 
 public class AntTsp {
 	private double c = 1.0;
-	private double alpha = 1;
-	private double beta = 5;
-	private double evaporation = 0.5;
-	private double Q = 500;
+	private double alpha = 1; //pheromone relatively importance
+	private double beta = 5; // relative importance of heuristic factor
+	private double evaporation = 0.5; // pheromone evaporation coefficient
+	private double Q = 500; // amount of pheromone ants released
 	private double numAntFactor = 0.2;
 	private double pr = 0.01;
 
