@@ -50,11 +50,11 @@ public class SimulatedAnnealer {
 		TSPEnvironment tspEnvironment = new TSPEnvironment();
 
 		try {
-//			tspEnvironment.distances = TSPEnvironment.readFile("./input/WesternSahara.txt");
+			tspEnvironment.distances = TSPEnvironment.readFile("./input/WesternSahara.txt");
 //			tspEnvironment.distances = TSPEnvironment.readFile("./input/Djibouti.txt");
 //			tspEnvironment.distances = TSPEnvironment.readFile("./input/Qatar.txt");
 //			tspEnvironment.distances = TSPEnvironment.readFile("./input/Argentina.txt");
-			tspEnvironment.distances = TSPEnvironment.readFile("./input/Kazakhstan.txt");
+//			tspEnvironment.distances = TSPEnvironment.readFile("./input/Kazakhstan.txt");
 //			tspEnvironment.distances = TSPEnvironment.readFile("./input/Greece.txt");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -63,7 +63,7 @@ public class SimulatedAnnealer {
 		int[] currSolution = getRandomArray(tspEnvironment.distances.length);
 		double currCost = tspEnvironment.getObjectiveFunctionValue(currSolution);
 
-		int numberOfIterations = 1000000;
+		int numberOfIterations = 10000;
 		double temperature = 6000000;
 		
 		int[] sbest = currSolution;
