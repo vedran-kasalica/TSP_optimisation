@@ -31,25 +31,39 @@ public class SimulatedAnnealer {
 		}
 		return ar;
 	}
+	
+	public static int[] randomNeighbor(int[] solution) {
+		int[] newSolution = new int[solution.length]; // this is the best
+		System.arraycopy(solution, 0, newSolution, 0, newSolution.length);
+		int k = solution.length;
+		int[] ints = new Random().ints(0, k).distinct().limit(2).toArray();
+		int rnd1 = ints[0];
+		int rnd2 = ints[1];
+		int temp = newSolution[rnd1];
+		newSolution[rnd1] = newSolution[rnd2];
+		newSolution[rnd2] = temp;
+		return solution;
+	}
 
 	public static void main(String[] args) {
 
 		TSPEnvironment tspEnvironment = new TSPEnvironment();
 
 		try {
-			tspEnvironment.distances = TSPEnvironment.readFile("./input/Argentina.txt");
+			tspEnvironment.distances = TSPEnvironment.readFile("./input/WesternSahara.txt");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		int[] currSolution = getRandomArray(tspEnvironment.distances.length);
 		double currCost = tspEnvironment.getObjectiveFunctionValue(currSolution);
-		int numberOfIterations = 1000;
-		double temperature = Double.MAX_VALUE;
+		int numberOfIterations = 10;
+		double temperature = 500;
 		for (int i = 0; i < numberOfIterations; i++) {
-			temperature -= (i + 1) / numberOfIterations;
-			int[] randomNeighbor = getRandomArray(tspEnvironment.distances.length);
-			double neighborCost = tspEnvironment.getObjectiveFunctionValue(currSolution);
+			temperature = temperature * Math.pow(0.95,i);
+			//double newtemperature = temperature/(i+1);
+			int[] randomNeighbor = randomNeighbor(currSolution);
+			double neighborCost = tspEnvironment.getObjectiveFunctionValue(randomNeighbor);
 			if (acceptProposal(currCost, neighborCost, temperature)) {
 				currSolution = randomNeighbor;
 			}
