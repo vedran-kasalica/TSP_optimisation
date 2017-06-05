@@ -37,7 +37,7 @@ public class SimulatedAnnealer {
 		TSPEnvironment tspEnvironment = new TSPEnvironment();
 
 		try {
-			tspEnvironment.distances = Project1.readFile("./input/Argentina.txt");
+			tspEnvironment.distances = TSPEnvironment.readFile("./input/Argentina.txt");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
