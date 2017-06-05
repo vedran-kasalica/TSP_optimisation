@@ -11,7 +11,7 @@ public class AntTsp {
 	private double numAntFactor = 0.2;
 	private double pr = 0.01;
 
-	private int maxIterations = 500;
+	private int maxIterations = 100;
 
 	public int n = 0; // # towns
 	public int m = 0; // # ants
@@ -24,7 +24,9 @@ public class AntTsp {
 	private int currentIndex = 0;
 
 	public int[] bestTour;
-	public double bestTourLength;
+	public double bestTourLength = Double.MAX_VALUE;
+	public double previousBestTourLength = 0;
+	public double difference = bestTourLength - previousBestTourLength;
 
 
 	public AntTsp(double[][] g) {
@@ -125,11 +127,15 @@ public class AntTsp {
 		if (bestTour == null) {
 			bestTour = ants[0].tour;
 			bestTourLength = ants[0].tourLength();
+//			previousBestTourLength = 0;
 		}
 		for (Ant a : ants) {
 			if (a.tourLength() < bestTourLength) {
+				previousBestTourLength = bestTourLength;
 				bestTourLength = a.tourLength();
+				//difference = bestTourLength - previousBestTourLength;
 				bestTour = a.tour.clone();
+				System.out.println("Previous is " + previousBestTourLength + " and current is "+ bestTourLength);
 			}
 		}
 	}
@@ -148,7 +154,7 @@ public class AntTsp {
 				trails[i][j] = c;
 
 		int iteration = 0;
-		while (iteration < maxIterations) {
+		while (iteration < maxIterations && Math.abs(difference) >= 0.1) {
 			setupAnts();
 			moveAnts();
 			updateTrails();
