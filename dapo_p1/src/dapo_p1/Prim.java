@@ -52,7 +52,7 @@ public class Prim {
 		for (int i = 0; i < size; i++)
 			mincost = mincost + d[i];
 
-		System.out.println("Minimum cost = " + mincost);
+//		System.out.println("Minimum cost = " + mincost);
 //		 System.out.print("\n Minimum Spanning tree is ");
 		
 //		 for (int i = 0; i < size; i++)
@@ -67,7 +67,7 @@ public class Prim {
 			}
 		}
 
-//		 print MST
+////		 print MST
 //		 for (int i = 0; i < MST[0].length; i++) {
 //		 for (int j = 0; j < MST[0].length; j++) {
 //		 System.out.printf("%3.1f \t", MST[i][j]);
