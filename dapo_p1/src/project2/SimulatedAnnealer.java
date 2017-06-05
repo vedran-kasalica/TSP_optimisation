@@ -39,7 +39,6 @@ public class SimulatedAnnealer {
 		int[] ints = new Random().ints(0, k).distinct().limit(2).toArray();
 		int rnd1 = ints[0];
 		int rnd2 = ints[1];
-		System.out.println(k+", od toga 2: "+rnd1+"___"+rnd2);
 		int temp = newSolution[rnd1];
 		newSolution[rnd1] = newSolution[rnd2];
 		newSolution[rnd2] = temp;
@@ -51,7 +50,7 @@ public class SimulatedAnnealer {
 		TSPEnvironment tspEnvironment = new TSPEnvironment();
 
 		try {
-			tspEnvironment.distances = TSPEnvironment.readFile("./input/Japan.txt");
+			tspEnvironment.distances = TSPEnvironment.readFile("./input/WesternSahara.txt");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -66,7 +65,7 @@ public class SimulatedAnnealer {
 		double ebest = currCost;
 		int k=0;
 //		double emax = 10000;
-		while (k<numberOfIterations){
+		while (k<numberOfIterations || temperature<10){
 			double newtemperature = temperature/(k+1);
 			int[] randomNeighbor = randomNeighbor(currSolution);
 			double neighborCost = tspEnvironment.getObjectiveFunctionValue(randomNeighbor);
@@ -78,12 +77,13 @@ public class SimulatedAnnealer {
 				sbest = randomNeighbor;
 				ebest = neighborCost;
 			}
-			printSolution(sbest);
+//			printSolution(sbest);
             System.out.println("The cost is: " + tspEnvironment.getObjectiveFunctionValue(sbest));
 			k++;
 			
 		}
-        System.out.println("The cost is: " + tspEnvironment.getObjectiveFunctionValue(sbest));
+        System.out.println("The cost of the best solution is:\n" + tspEnvironment.getObjectiveFunctionValue(sbest));
+        System.out.println("\nThe solution is:");
 		printSolution(sbest);
 
 	}
