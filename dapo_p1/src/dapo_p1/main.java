@@ -92,8 +92,6 @@ public class main {
 					traversal.add(i);
 				DFS(i,V,adjMatrix,traversal);
 			}
-		
-//S		System.out.printf("Done processing node %d%n", at);
 	}
 
 	/*public static void main(String[] args) throws IOException {
@@ -125,7 +123,6 @@ public class main {
 
 		int size = adjMatrix[0].length;
 		
-		int number_no_nodes = adjMatrix[0].length;
 		System.out.println("The BFS traversal of the graph is ");
 		ArrayList<Integer> traversal = DFS(MST);
 		for (int i = 0; i < adjMatrix[0].length +1; i++) {
@@ -150,16 +147,6 @@ public class main {
 		}
 		
 		System.out.println("The total cost is: " + sum);
-		
-		int[] odd = new int[size];
-		int curr = 0;
-/*		for (int i = 0; i < number_no_nodes; i++) {
-			for (int j=0; j < number_no_nodes; j++){
-				if(MST[i][j]!=0.0)
-				System.out.println("The MST of "+ i + " "+ j+ " is " + MST[i][j]);
-			}
-		}*/
-
 	}
 
 }
