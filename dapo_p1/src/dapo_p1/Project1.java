@@ -9,7 +9,7 @@ import java.util.Locale;
 import java.util.Scanner;
 import java.util.Set;
 
-public class main {
+public class Project1 {
 
 	static ArrayList<int[]> bestPairs;
 	static int pairSum = Integer.MAX_VALUE;

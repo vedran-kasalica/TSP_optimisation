@@ -1,7 +1,29 @@
 package project2;
 
+import java.io.FileNotFoundException;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
+import dapo_p1.Project1;
+
 public class TabuSearch {
 
+	static int[] getRandomArray(int n)
+	  {
+		int[] ar=new  int[n];
+		for(int i=0;i<n;i++)
+			ar[i]=i;
+	    Random rnd = ThreadLocalRandom.current();
+	    for (int i = ar.length - 1; i > 0; i--)
+	    {
+	      int index = rnd.nextInt(i + 1);
+	      int a = ar[index];
+	      ar[index] = ar[i];
+	      ar[i] = a;
+	    }
+	    return ar;
+	  }
+	
     public static int[] getBestNeighbour(TabuList tabuList,
             TSPEnvironment tspEnviromnet,
             int[] initSolution) {
@@ -62,15 +84,16 @@ public class TabuSearch {
 
         TSPEnvironment tspEnvironment = new TSPEnvironment();
 
-        tspEnvironment.distances = //Distance matrix, 5x5, used to represent distances
-                new int[][]{{0, 1, 3, 4, 5},
-                            {1, 0, 1, 4, 8},
-                            {3, 1, 0, 5, 1},
-                            {4, 4, 5, 0, 2},
-                            {5, 8, 1, 2, 0}};
+        try {
+			tspEnvironment.distances =  Project1.readFile("./input/WesternSahara.txt");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         //Between cities. 0,1 represents distance between cities 0 and 1, and so on.
-
-        int[] currSolution = new int[]{0, 1, 2, 3, 4, 0};   //initial solution
+        
+        int[] currSolution =getRandomArray(tspEnvironment.distances.length);   //initial solution
+        printSolution(currSolution);
         //city numbers start from 0
         // the first and last cities' positions do not change
 
@@ -85,10 +108,10 @@ public class TabuSearch {
         for (int i = 0; i < numberOfIterations; i++) { // perform iterations here
 
             currSolution = TabuSearch.getBestNeighbour(tabuList, tspEnvironment, currSolution);
-            //printSolution(currSolution);
+            printSolution(currSolution);
             int currCost = tspEnvironment.getObjectiveFunctionValue(currSolution);
 
-            //System.out.println("Current best cost = " + tspEnvironment.getObjectiveFunctionValue(currSolution));
+            System.out.println("Current best cost = " + tspEnvironment.getObjectiveFunctionValue(currSolution));
 
             if (currCost < bestCost) {
                 System.arraycopy(currSolution, 0, bestSol, 0, bestSol.length);

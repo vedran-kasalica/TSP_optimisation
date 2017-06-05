@@ -4,7 +4,7 @@ package project2;
 
 public class TSPEnvironment { //Tabu Search Environment
     
-    public int [][] distances;
+    public double[][] distances;
     
     public TSPEnvironment(){
         
